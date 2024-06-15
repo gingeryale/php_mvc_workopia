@@ -3,6 +3,11 @@
 
 ### Linux ###
 *~
+/vendor
+/config/db.php
+.env
+.vscode
+.DS_Store
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
