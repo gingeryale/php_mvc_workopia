@@ -1,7 +1,9 @@
 <?php
 
 require '../helpers.php';
-// loadView('home');
+require basePath('Database.php');
+$config = require basePath('config/db.php');
+$db = new Database($config);
 
 
 require basePath('Router.php');
