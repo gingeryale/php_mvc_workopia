@@ -59,3 +59,7 @@ function inspect($value){
 function dd($value){
     echo '<pre>'.die(var_dump($value)).'</pre>';
 }
+
+function formatSalary($salary){
+    return '$'. number_format(floatval($salary));
+}

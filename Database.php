@@ -12,7 +12,9 @@ class Database{
         $dsn="mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']}";
         $options=[
             PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC
+            PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_OBJ
+            // could use fetch object PDO::FETCH_OBJ and then use $litings->name
+            // could use fetch object PDO::FETCH_ASSOC and then use $litings['name']
         ];
         try{
             $this->conn = new PDO($dsn,$config['username'], $config['password'],$options);
