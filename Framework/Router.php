@@ -1,5 +1,7 @@
 <?php
 
+namespace Framework;
+
 // $routes = require basePath('routes.php');
 
 // inspect($uri);

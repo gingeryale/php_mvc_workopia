@@ -1,0 +1,15 @@
+{
+    "name" : "gingeryale/workopia",
+    "description": "Job Listing PHP Full Stack site",
+    "authors": [
+        {
+            "name" : "Udemy course"
+        }
+    ],
+    "autoload": {
+        "psr-4" : {
+            "Framework\\":"Framework/",
+            "App\\":"App/"
+        }
+    }
+}
