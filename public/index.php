@@ -28,7 +28,8 @@ $routes = require basePath('routes.php');
 // GET URI+HTTP METHOD
 // parse_url parses url into componenets, here returns only uri PATH
 $uri= parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$method = $_SERVER['REQUEST_METHOD'];
+//$method = $_SERVER['REQUEST_METHOD'];
 
 // ROUTE the REQUEST
-$router->route($uri,$method);
+//$router->route($uri,$method);
+$router->route($uri);

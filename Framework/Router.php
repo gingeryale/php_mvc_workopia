@@ -87,19 +87,53 @@ class Router{
        * @param string $method
        * @return  void
        */
-      public function route($uri,$method){
+      public function route($uri){
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
         foreach($this->routes as $route){
-            if($route['uri']===$uri && $route['method']===$method){
-                // require basepath('App/'. $route['controller']);
-                // EXTRACT CONTROLLER + METHOD
-                $controller = 'App\\Controllers\\'.$route['controller'];
-                $controllerMethod =$route['controllerMethod'];
 
-                // instantiate controller and call method
-                $controllerInstance = new $controller();
-                $controllerInstance->$controllerMethod();
-                return;
+            // split current URI into segments EXPLODE
+            $uriSegments = explode('/', trim($uri, '/'));
+           
+            // split route URI into segments
+            $routeSegments = explode('/', trim($route['uri'], '/'));
+
+            $match = true;
+
+            // check for equal no of segments
+            if(count($uriSegments) === count($routeSegments) && 
+            strtoupper($route['method'] === $requestMethod)) 
+            {
+                $params = [];
+                $match = true;
+
+                for($i=0;$i<count($uriSegments);$i++){
+                    // if URIs don't match and n o param
+                    if($routeSegments[$i] !== $uriSegments[$i] && 
+                    !preg_match('/\{(.+?)\}/', $routeSegments[$i])){
+                        $match = false;
+                        break;
+                    }
+                    // checks param + add to params arr
+                    if(preg_match('/\{(.+?)\}/', $routeSegments[$i], $matches)){
+                        $params[$matches[1]] = $uriSegments[$i];
+                    }
+                }
+                if($match){
+                   
+                    // require basepath('App/'. $route['controller']);
+                    // EXTRACT CONTROLLER + METHOD
+                    $controller = 'App\\Controllers\\'.$route['controller'];
+                    $controllerMethod =$route['controllerMethod'];
+    
+                    // instantiate controller and call method
+                    $controllerInstance = new $controller();
+                    $controllerInstance->$controllerMethod($params);
+                    return;
+                    
+                }
             }
+           
+            
         }
         ErrorController::notFound();
       //$this->error();
