@@ -1,6 +1,7 @@
 <?php
 
 namespace Framework;
+use App\Controllers\ErrorController;
 
 // $routes = require basePath('routes.php');
 
@@ -15,13 +16,24 @@ namespace Framework;
 class Router{
     protected $routes = [];
 
-    public function registerRoute($method, $uri, $controller){
-       $this->routes[] = [
-        'method'=>$method,
-        'uri'=> $uri,
-        'controller'=>$controller
-       ];
-    }
+    public function registerRoute($method, $uri, $action){
+         list($controller, $controllerMethod) = explode('@', $action);
+
+        $this->routes[] = [
+         'method'=>$method,
+         'uri'=> $uri,
+         'controller'=> $controller,
+         'controllerMethod'=> $controllerMethod
+        ];
+     }
+
+    // public function registerRoute($method, $uri, $controller){
+    //    $this->routes[] = [
+    //     'method'=>$method,
+    //     'uri'=> $uri,
+    //     'controller'=>$controller
+    //    ];
+    // }
 
     /** GET ROUTE
      * @param string $uri
@@ -63,11 +75,11 @@ class Router{
      * @param int $httpCode
      * return void
     */
-    public function error($httpCode = 404){
-        http_response_code($httpCode);
-        loadView("error/{$httpCode}");
-        exit;
-    }
+    // public function error($httpCode = 404){
+    //     http_response_code($httpCode);
+    //     loadView("error/{$httpCode}");
+    //     exit;
+    // }
 
       /** 
        * Route request
@@ -78,11 +90,18 @@ class Router{
       public function route($uri,$method){
         foreach($this->routes as $route){
             if($route['uri']===$uri && $route['method']===$method){
-                require basepath('App/'. $route['controller']);
+                // require basepath('App/'. $route['controller']);
+                // EXTRACT CONTROLLER + METHOD
+                $controller = 'App\\Controllers\\'.$route['controller'];
+                $controllerMethod =$route['controllerMethod'];
+
+                // instantiate controller and call method
+                $controllerInstance = new $controller();
+                $controllerInstance->$controllerMethod();
                 return;
             }
         }
-
-      $this->error();
+        ErrorController::notFound();
+      //$this->error();
       }
 }
