@@ -58,6 +58,24 @@ class ListingController {
         $newListingData['user_id']=1;
 
         $newListingData = array_map('santize', $newListingData);
+
+        $requiredFields = ["title", "description","city","state","email"];
+
+        $errors = [];
+
+        foreach($requiredFields as $field){
+            if(empty($newListingData[$field]) || !Validation::string($newListingData[$field])){
+                $errors[$field] = ucfirst($field) .' is required.';
+            }
+        }
+
+       if(!empty($errors)){
+        loadView('listings/create',[
+            'errors'=>$errors,
+            'listing' => $newListingData
+        ]); }else{
+            echo 'ok';
+       }
     }
 }
 

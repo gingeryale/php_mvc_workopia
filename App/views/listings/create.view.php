@@ -17,12 +17,23 @@ loadPartial('banner_top');
           <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">
             Job Info
           </h2>
+          <?php
+          if(isset($errors)){
+            foreach($errors as $error){
+            ?>
+  <div class="badge-danger">
+    <?= $error;?>
+  </div>
+         <?php }
+          }
+          ?>
           <div class="mb-4">
             <input
               type="text"
               name="title"
               placeholder="Job Title"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['title'] ?? '' ?>"
             />
           </div>
           <div class="mb-4">
@@ -30,7 +41,7 @@ loadPartial('banner_top');
               name="description"
               placeholder="Job Description"
               class="w-full px-4 py-2 border rounded focus:outline-none"
-            ></textarea>
+            ><?= $listing['description'] ?? '' ?></textarea>
           </div>
           <div class="mb-4">
             <input
@@ -38,6 +49,7 @@ loadPartial('banner_top');
               name="salary"
               placeholder="Annual Salary"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['salary'] ?? ''?>"
             />
           </div>
           <div class="mb-4">
@@ -46,6 +58,7 @@ loadPartial('banner_top');
               name="requirements"
               placeholder="Requirements"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['requirements'] ?? '' ?>"
             />
           </div>
           <div class="mb-4">
@@ -54,6 +67,7 @@ loadPartial('banner_top');
               name="benefits"
               placeholder="Benefits"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['benefits'] ?? ''?>"
             />
           </div>
           <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">
@@ -65,6 +79,7 @@ loadPartial('banner_top');
               name="company"
               placeholder="Company Name"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['company'] ?? ''?>"
             />
           </div>
           <div class="mb-4">
@@ -73,6 +88,7 @@ loadPartial('banner_top');
               name="address"
               placeholder="Address"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['address'] ?? ''?>"
             />
           </div>
           <div class="mb-4">
@@ -81,6 +97,7 @@ loadPartial('banner_top');
               name="city"
               placeholder="City"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['city'] ?? ''?>"
             />
           </div>
           <div class="mb-4">
@@ -89,6 +106,7 @@ loadPartial('banner_top');
               name="state"
               placeholder="State"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['state'] ?? ''?>"
             />
           </div>
           <div class="mb-4">
@@ -97,6 +115,7 @@ loadPartial('banner_top');
               name="phone"
               placeholder="Phone"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['phone'] ?? ''?>"
             />
           </div>
           <div class="mb-4">
@@ -105,6 +124,7 @@ loadPartial('banner_top');
               name="email"
               placeholder="Email Address For Applications"
               class="w-full px-4 py-2 border rounded focus:outline-none"
+              value="<?= $listing['email'] ?? ''?>"
             />
           </div>
           <button
