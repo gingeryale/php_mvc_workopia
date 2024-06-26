@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use Framework\Database;
+use Framework\Validation;
 
 class ListingController {
 
@@ -42,4 +43,21 @@ class ListingController {
             'listing' =>$listing
         ]);
     }
+
+
+/**
+ * STORE data in DB
+ * 
+ * @return void
+ */
+    public function store(){
+        $allowedFields =  ["title", "description","salary","requirements","benefits","company","address","city","state","phone","email"];
+
+        $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
+
+        $newListingData['user_id']=1;
+
+        $newListingData = array_map('santize', $newListingData);
+    }
 }
+
